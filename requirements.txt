@@ -6,3 +6,4 @@ numpy
 pydantic
 python-multipart
 streamlit
+pydantic_settings
