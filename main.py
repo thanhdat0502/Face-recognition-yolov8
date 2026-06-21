@@ -1,7 +1,7 @@
 # File chính để chạy uvicorn server (FastAPI)
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from src.routers import face_detect
+from src.routers import face_detect, face_realtime
 from src.utils.configs import Settings
 
 settings = Settings()
@@ -20,6 +20,7 @@ app.add_middleware(
 )
 
 app.include_router(face_detect.router)
+app.include_router(face_realtime.router)
 
 @app.get("/health", summary="Kiểm tra sức khỏe API")
 def health_check():
