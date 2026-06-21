@@ -16,22 +16,20 @@ class VideoStream:
         
     def start(self):
         # Use V4L2 backend on Linux for reliable camera access
-        self.cap = cv2.VideoCapture(0)
+        self.cap = cv2.VideoCapture(self.resource, cv2.CAP_V4L2)
+        
+        if not self.cap.isOpened():
+            # Fallback: try without specifying backend
+            self.cap = cv2.VideoCapture(self.resource)
         
         if not self.cap.isOpened():
             raise ValueError(f"Unable to open video source {self.resource}")
+        
+        self.cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
         self.running = True
         self._thread = threading.Thread(target=self._update, daemon=True)
         self._thread.start()
         time.sleep(1.0)
-        
-        # self.cap = cv2.VideoCapture(self.resource, cv2.CAP_V4L2)
-    
-        # self.cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
-
-        # if not self.cap.isOpened():
-        #     raise ValueError(f"Unable to open video source {self.resource} using V4L2 backend")
-        # return self
     
     def _update(self):
         while self.running:
