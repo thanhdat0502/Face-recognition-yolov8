@@ -17,8 +17,7 @@ API_HTTP_URL = "http://localhost:8000"
 #  PAGE CONFIG
 # ─────────────────────────────────────────
 st.set_page_config(
-    page_title="FaceID · YOLOv8",
-    page_icon="🎯",
+    page_title="Hệ thống phát hiện khuôn mặt người",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
